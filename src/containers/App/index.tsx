@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-const App = () => (
+const App: FC = () => (
   <div className="App">
     <h1>Weather</h1>
   </div>

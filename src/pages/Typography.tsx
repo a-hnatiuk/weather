@@ -1,3 +1,7 @@
 import React from 'react';
 
-export const Typography = () => <div>Typography</div>;
+export const Typography = () => (
+  <div>
+    <h1>Typography</h1>
+  </div>
+);
