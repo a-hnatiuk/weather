@@ -1,9 +1,7 @@
 import axios from 'axios';
 import { ICoordinates } from '../containers/Context/Coordinates';
 
-// const baseUrl = 'https://api.weatherbit.io/v2.0/forecast/daily?city=Raleigh,NC&key=API_KEY'
-const baseUrl =
-  'https://api.weatherbit.io/v2.0/forecast/daily?key=550d50101d894571868ea6a15c5fee39';
+const baseUrl = `https://api.weatherbit.io/v2.0/forecast/daily?key=${process.env.REACT_APP_WEATHER_API_KEY}`;
 
 const instance = axios.create({
   baseURL: `${baseUrl}`,
