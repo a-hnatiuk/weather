@@ -1,11 +1,32 @@
-import { List, ListItemButton, ListItemText, TextField } from '@mui/material';
+import { ChangeEvent, useContext } from 'react';
+import { styled } from '@mui/material/styles';
+import {
+  List,
+  ListItemButton,
+  ListItemText,
+  TextField,
+  IconButton,
+} from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from 'use-places-autocomplete';
-// import useOnclickOutside from 'react-cool-onclickoutside';
+
+import { Coordinates } from '../../containers/Context/Coordinates';
+
+const StyledCityPicker = styled(({ className, children }) => (
+  <div className={className}>{children}</div>
+))({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  maxWidth: 600,
+});
 
 const CityPicker = () => {
+  const { coordinates, setCoordinates } = useContext(Coordinates);
   const {
     ready,
     value,
@@ -18,33 +39,24 @@ const CityPicker = () => {
     },
     debounce: 300,
   });
-  // const ref = useOnclickOutside(() => {
-  //   // When user clicks outside of the component, we can dismiss
-  //   // the searched suggestions by calling this method
-  //   clearSuggestions();
-  // });
 
-  const handleInput = (e: any) => {
-    // Update the keyword of the input element
+  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
 
   const handleSelect =
-    ({ description }: any) =>
+    ({ description }: { description: string }) =>
     () => {
-      // eslint-disable-next-line
-      // debugger;
       // When user selects a place, we can replace the keyword without request data from API
       // by setting the second parameter to "false"
       setValue(description, false);
       clearSuggestions();
 
-      // Get latitude and longitude via utility functions
       getGeocode({ address: description }).then((results) => {
-        // eslint-disable-next-line
-        // debugger;
         const { lat, lng } = getLatLng(results[0]);
-        console.log('📍 Coordinates: ', { lat, lng });
+        if (setCoordinates) {
+          setCoordinates({ lat, lng });
+        }
       });
     };
 
@@ -66,21 +78,27 @@ const CityPicker = () => {
     });
 
   return (
-    <div>
-      <TextField
-        value={value}
-        onChange={handleInput}
-        disabled={!ready}
-        variant="standard"
-        label="Select your region"
-      />
+    <StyledCityPicker>
+      <div>
+        <TextField
+          // fullWidth
+          value={value}
+          onChange={handleInput}
+          disabled={!ready}
+          variant="standard"
+          label="Select your region"
+        />
+        <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+          <SearchIcon />
+        </IconButton>
+      </div>
       {/* We can use the "status" to decide whether we should display the dropdown or not */}
       {status === 'OK' && (
         <List component="nav" aria-label="main mailbox folders">
           {renderSuggestions()}
         </List>
       )}
-    </div>
+    </StyledCityPicker>
   );
 };
 
