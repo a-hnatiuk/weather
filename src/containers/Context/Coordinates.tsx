@@ -8,9 +8,9 @@ import {
   ReactNode,
 } from 'react';
 
-interface ICoordinates {
+export interface ICoordinates {
   lat: number;
-  lng: number;
+  lon: number;
 }
 
 export interface ICoordinatesContext {
@@ -28,7 +28,10 @@ export const CoordinatesProvider: FC<ICoordinatesProvider> = ({ children }) => {
   const [coordinates, setCoordinates] = useState<ICoordinates>(
     {} as ICoordinates
   );
-  const contextValue = useMemo(() => ({ coordinates, setCoordinates }), []);
+  const contextValue = useMemo(
+    () => ({ coordinates, setCoordinates }),
+    [coordinates]
+  );
 
   return (
     <Coordinates.Provider value={contextValue}>{children}</Coordinates.Provider>

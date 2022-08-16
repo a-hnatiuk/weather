@@ -1,4 +1,6 @@
 import { ChangeEvent, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { styled } from '@mui/material/styles';
 import {
   List,
@@ -15,6 +17,7 @@ import usePlacesAutocomplete, {
 } from 'use-places-autocomplete';
 
 import { Coordinates } from '../../containers/Context/Coordinates';
+import { RouterLinks } from '../Routes';
 
 const StyledCityPicker = styled(({ className, children }) => (
   <div className={className}>{children}</div>
@@ -26,7 +29,8 @@ const StyledCityPicker = styled(({ className, children }) => (
 });
 
 const CityPicker = () => {
-  const { coordinates, setCoordinates } = useContext(Coordinates);
+  const { setCoordinates } = useContext(Coordinates);
+  const navigate = useNavigate();
   const {
     ready,
     value,
@@ -55,7 +59,10 @@ const CityPicker = () => {
       getGeocode({ address: description }).then((results) => {
         const { lat, lng } = getLatLng(results[0]);
         if (setCoordinates) {
-          setCoordinates({ lat, lng });
+          const coordinates = { lat, lon: lng };
+          console.log('coo: ', coordinates);
+          setCoordinates(coordinates);
+          navigate(RouterLinks.forecast, { replace: true });
         }
       });
     };
