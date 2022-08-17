@@ -69,7 +69,7 @@ const WeatherForecast: FC = () => {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Typography variant="h3" align="center">
+      <Typography variant="h3" align="center" mb={6} mt={2}>
         Wheather {forecastRegion && ` in  ${forecastRegion}`}
       </Typography>
       {forecastDailyList && forecastDailyList.length > 0 && (

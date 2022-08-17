@@ -1,20 +1,17 @@
-import {
-  FC,
-  useContext,
-  useEffect,
-  useState,
-  useCallback,
-  MouseEvent,
-} from 'react';
+import { FC, useEffect, useState } from 'react';
 import localForage from 'localforage';
-import { Chip as ChipUI, Box } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { styled } from '@mui/material/styles';
 
-import {
-  Coordinates,
-  ICoordinates,
-} from '../../containers/Context/Coordinates';
-import Chip from './components/Chips';
+import { ICoordinates } from 'containers/Context/Coordinates';
+import Chip from 'components/LastSeenRegions/components/Chips';
+
+const StyledRegions = styled('div')`
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-bottom: 40px;
+`;
 
 export interface ILastSeenRegion {
   id: string;
@@ -32,11 +29,11 @@ const LastSeenRegions: FC = () => {
   }, []);
 
   return (
-    <Box>
+    <StyledRegions>
       {regions &&
         regions.length > 0 &&
         regions.map((region) => <Chip key={region.id} region={region} />)}
-    </Box>
+    </StyledRegions>
   );
 };
 
