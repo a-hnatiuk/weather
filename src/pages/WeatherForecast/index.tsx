@@ -1,15 +1,36 @@
 import { FC, useContext, useEffect, useState, SyntheticEvent } from 'react';
 import { Typography, Tabs, Tab, Box } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 
 import { isEmpty } from 'helpers/isEmpty';
 import { api, IWeatherItem } from 'helpers/api';
-import { getKeyFromDate } from 'helpers/getKeyFromDate';
-import { getWeatherIcon } from 'helpers/getWeatherIcon';
+import { getKeyFromDate, getWeatherIcon, dateFormat } from 'helpers/weather';
+import { mqUp } from 'helpers/mqUp';
 
 import { Coordinates } from 'containers/Context/Coordinates';
 import { RouterLinks } from 'components/Routes';
 import TabItem, { tabPrefix } from 'components/TabItem';
+import Title from 'pages/WeatherForecast/components/Title';
+import TitleSmall from 'pages/WeatherForecast/components/TitleSmall';
+
+const StyledBox = styled(Box)`
+  background-color: transparent;
+  ${(props) => props.theme.breakpoints.down('lg')} {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+    .icon {
+      width: 60px;
+      height: 60px;
+      margin-right: 60px;
+    }
+    .temp {
+      font-size: 24px;
+    }
+  }
+`;
 
 const extraProps = (index: number) => ({
   id: `${tabPrefix}-tab-${index}`,
@@ -20,6 +41,7 @@ const DEGREE_SIGN = '\u00b0';
 
 const WeatherForecast: FC = () => {
   const navigate = useNavigate();
+  const desktop = mqUp('lg');
   const { coordinates } = useContext(Coordinates);
   const [forecastDailyList, setForecastDailyList] =
     useState<Array<IWeatherItem>>();
@@ -52,37 +74,41 @@ const WeatherForecast: FC = () => {
       </Typography>
       {forecastDailyList && forecastDailyList.length > 0 && (
         <Box>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            variant="scrollable"
-            scrollButtons="auto"
-            aria-label="weather forecast tabs"
-          >
-            {forecastDailyList.map((item, i) => (
-              <Tab
-                key={getKeyFromDate(item.datetime)}
-                label={item.datetime}
-                {...extraProps(i)}
-              />
-            ))}
-          </Tabs>
+          {desktop && (
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              variant="scrollable"
+              scrollButtons="auto"
+              aria-label="weather forecast tabs"
+            >
+              {forecastDailyList.map((item, i) => (
+                <Tab
+                  key={getKeyFromDate(item.datetime)}
+                  label={<Title dateString={item.datetime} />}
+                  {...extraProps(i)}
+                />
+              ))}
+            </Tabs>
+          )}
           {forecastDailyList.map(
             ({ datetime, weather, min_temp, max_temp }, i) => (
-              <TabItem key={getKeyFromDate(datetime)} value={value} index={i}>
-                <Box p={2}>
-                  {/* TODO add data to render. Add styles */}
-                  <div className="icon">
+              <div key={getKeyFromDate(datetime)}>
+                {!desktop && <TitleSmall dateString={datetime} />}
+                <TabItem value={value} index={i}>
+                  <StyledBox p={2}>
+                    {/* TODO add data to render. Add styles */}
                     <img
+                      className="icon"
                       src={getWeatherIcon(weather.icon)}
                       alt={weather.description}
                     />
-                  </div>
-                  <div className="temp">
-                    <strong>{`${min_temp}${DEGREE_SIGN} ... ${max_temp}${DEGREE_SIGN}`}</strong>
-                  </div>
-                </Box>
-              </TabItem>
+                    <div className="temp">
+                      <strong>{`${min_temp}${DEGREE_SIGN} ... ${max_temp}${DEGREE_SIGN}`}</strong>
+                    </div>
+                  </StyledBox>
+                </TabItem>
+              </div>
             )
           )}
         </Box>

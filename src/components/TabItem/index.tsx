@@ -1,5 +1,7 @@
 import { FC, ReactNode } from 'react';
 
+import { mqUp } from 'helpers/mqUp';
+
 interface ITabItem {
   children?: ReactNode;
   index: number;
@@ -8,16 +10,21 @@ interface ITabItem {
 
 export const tabPrefix = 'weather';
 
-const TabItem: FC<ITabItem> = ({ children, value, index, ...other }) => (
-  <div
-    role="tabpanel"
-    hidden={value !== index}
-    id={`${tabPrefix}-tabpanel-${index}`}
-    aria-labelledby={`${tabPrefix}-tab-${index}`}
-    {...other}
-  >
-    {value === index && children}
-  </div>
-);
+const TabItem: FC<ITabItem> = ({ children, value, index, ...other }) => {
+  const desktop = mqUp('lg');
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={desktop && value !== index}
+      id={`${tabPrefix}-tabpanel-${index}`}
+      aria-labelledby={`${tabPrefix}-tab-${index}`}
+      {...other}
+    >
+      {desktop && value === index && children}
+      {!desktop && children}
+    </div>
+  );
+};
 
 export default TabItem;
