@@ -1,9 +1,10 @@
+import { FC } from 'react';
 import { Box } from '@mui/material';
-import React from 'react';
-import CityPicker from '../../components/CityPicker';
-import LastSeenRegions from '../../components/LastSeenRegions/Index';
 
-const Home = () => (
+import CityPicker from 'components/CityPicker';
+import LastSeenRegions from 'components/LastSeenRegions';
+
+const Home: FC = () => (
   <Box>
     <LastSeenRegions />
     <CityPicker />

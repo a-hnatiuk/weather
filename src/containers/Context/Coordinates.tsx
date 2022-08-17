@@ -18,11 +18,11 @@ export interface ICoordinatesContext {
   setCoordinates: Dispatch<SetStateAction<ICoordinates>>;
 }
 
-export const Coordinates = createContext<Partial<ICoordinatesContext>>({});
-
 interface ICoordinatesProvider {
   children?: ReactNode;
 }
+
+export const Coordinates = createContext<Partial<ICoordinatesContext>>({});
 
 export const CoordinatesProvider: FC<ICoordinatesProvider> = ({ children }) => {
   const [coordinates, setCoordinates] = useState<ICoordinates>(

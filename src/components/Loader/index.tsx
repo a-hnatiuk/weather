@@ -1,7 +1,9 @@
 import { FC, useMemo } from 'react';
 import { styled } from '@mui/material/styles';
-import LoaderIcon from '../../icons/Loader';
 
+import LoaderIcon from 'icons/Loader';
+
+// Error: 'LoaderColors' is already declared in the upper scope on line 8 column
 // eslint-disable-next-line
 export enum LoaderColors {
   white = 'white',
@@ -40,6 +42,7 @@ const StyledIconWrapper = styled(({ className, ...props }: any) => (
 
 const Loader: FC<LoaderPropsType> = ({ color, absolute, box }) => {
   const fill = useMemo(() => {
+    // TODO fix colors. Now does not work
     switch (color) {
       case LoaderColors.primary: {
         return 'green';

@@ -1,8 +1,12 @@
-import { ChangeEvent, useContext, useEffect } from 'react';
+import { FC, ChangeEvent, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import localForage from 'localforage';
-
 import { styled } from '@mui/material/styles';
+import SearchIcon from '@mui/icons-material/Search';
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from 'use-places-autocomplete';
 import {
   List,
   ListItemButton,
@@ -10,18 +14,12 @@ import {
   TextField,
   IconButton,
 } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
 
-import usePlacesAutocomplete, {
-  getGeocode,
-  getLatLng,
-} from 'use-places-autocomplete';
+import { RouterLinks } from 'components/Routes';
+import { ILastSeenRegion } from 'components/LastSeenRegions';
+import { Coordinates } from 'containers/Context/Coordinates';
 
-import { Coordinates } from '../../containers/Context/Coordinates';
-import { RouterLinks } from '../Routes';
-import { ILastSeenRegion } from '../LastSeenRegions/Index';
-
-const StyledCityPicker = styled(({ className, children }) => (
+const StyledCityPicker = styled(({ className, children }: any) => (
   <div className={className}>{children}</div>
 ))({
   display: 'flex',
@@ -30,7 +28,7 @@ const StyledCityPicker = styled(({ className, children }) => (
   maxWidth: 600,
 });
 
-const CityPicker = () => {
+const CityPicker: FC = () => {
   const { setCoordinates } = useContext(Coordinates);
   const navigate = useNavigate();
   const {
@@ -40,9 +38,6 @@ const CityPicker = () => {
     setValue,
     clearSuggestions,
   } = usePlacesAutocomplete({
-    requestOptions: {
-      /* Define search scope here */
-    },
     debounce: 300,
   });
 
@@ -61,27 +56,29 @@ const CityPicker = () => {
   const handleSelect =
     ({ description }: { description: string }) =>
     () => {
-      // When user selects a place, we can replace the keyword without request data from API
-      // by setting the second parameter to "false"
       setValue(description, false);
       clearSuggestions();
 
       getGeocode({ address: description }).then((results) => {
         const placeId = results[0].place_id;
         const { lat, lng } = getLatLng(results[0]);
+
         if (setCoordinates) {
           const coordinates = { lat, lon: lng };
-          localForage.getItem('lastRegion').then((currentList) => {
-            const current: Array<ILastSeenRegion> = JSON.parse(
-              currentList as string
+
+          localForage.getItem('lastRegion').then((currentListJson) => {
+            const currentLastSeenList: Array<ILastSeenRegion> = JSON.parse(
+              currentListJson as string
             );
-            if (!current.some((item) => item.id === placeId)) {
-              const lastRegionsList = current.concat([
+
+            if (!currentLastSeenList.some((item) => item.id === placeId)) {
+              const updatedLastSeenList = currentLastSeenList.concat([
                 { id: placeId, description, coordinates },
               ]);
+
               localForage.setItem(
                 'lastRegion',
-                JSON.stringify(lastRegionsList)
+                JSON.stringify(updatedLastSeenList)
               );
             }
           });
@@ -115,7 +112,6 @@ const CityPicker = () => {
     <StyledCityPicker>
       <div>
         <TextField
-          // fullWidth
           value={value}
           onChange={handleInput}
           disabled={!ready}
@@ -131,7 +127,6 @@ const CityPicker = () => {
           <SearchIcon />
         </IconButton>
       </div>
-      {/* We can use the "status" to decide whether we should display the dropdown or not */}
       {status === 'OK' && (
         <List component="nav" aria-label="main mailbox folders">
           {renderSuggestions()}
