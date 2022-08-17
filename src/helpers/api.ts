@@ -44,7 +44,6 @@ export const api = {
     async getDaily(params: ICoordinates) {
       const { data, status } = await instance.get('', { params });
       if (status === 200) {
-        console.log(data);
         return data;
       }
       return null;
