@@ -1,5 +1,5 @@
 import { FC, useContext, useEffect, useState, SyntheticEvent } from 'react';
-import { Typography, Tabs, Tab, Box } from '@mui/material';
+import { Typography, Tabs, Tab, Box, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,6 +13,7 @@ import { RouterLinks } from 'components/Routes';
 import TabItem, { tabPrefix } from 'components/TabItem';
 import Title from 'pages/WeatherForecast/components/Title';
 import TitleSmall from 'pages/WeatherForecast/components/TitleSmall';
+import Back from 'icons/Back';
 
 const StyledBox = styled(Box)`
   background-color: transparent;
@@ -67,8 +68,19 @@ const WeatherForecast: FC = () => {
     }
   }, []);
 
+  const backHandler = () => navigate(RouterLinks.home, { replace: true });
+
   return (
     <Box sx={{ width: '100%' }}>
+      <Box padding={4}>
+        <Button
+          onClick={backHandler}
+          variant="contained"
+          startIcon={<Back fontSize="medium" />}
+        >
+          Back
+        </Button>
+      </Box>
       <Typography variant="h3" align="center" mb={6} mt={2}>
         Wheather {forecastRegion && ` in  ${forecastRegion}`}
       </Typography>
