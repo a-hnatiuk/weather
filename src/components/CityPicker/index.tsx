@@ -44,7 +44,7 @@ const CityPicker: FC = () => {
   useEffect(() => {
     localForage.getItem('lastRegion').then((currentList) => {
       if (currentList === null) {
-        localForage.setItem('lastRegion', JSON.stringify([]));
+        localForage.setItem('lastRegion', []);
       }
     });
   }, []);
@@ -67,19 +67,15 @@ const CityPicker: FC = () => {
           const coordinates = { lat, lon: lng };
 
           localForage.getItem('lastRegion').then((currentListJson) => {
-            const currentLastSeenList: Array<ILastSeenRegion> = JSON.parse(
-              currentListJson as string
-            );
+            const currentLastSeenList: Array<ILastSeenRegion> =
+              currentListJson as Array<ILastSeenRegion>;
 
             if (!currentLastSeenList.some((item) => item.id === placeId)) {
               const updatedLastSeenList = currentLastSeenList.concat([
                 { id: placeId, description, coordinates },
               ]);
 
-              localForage.setItem(
-                'lastRegion',
-                JSON.stringify(updatedLastSeenList)
-              );
+              localForage.setItem('lastRegion', updatedLastSeenList);
             }
           });
           setCoordinates(coordinates);

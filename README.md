@@ -12,6 +12,12 @@ In the project directory, you can run:
 ### `npm install`
 ### `npm start`
 
+The progect requires `.env` file with keys:
+- `REACT_APP_GOOGLE_API_KEY`\
+(should include Geocoding API, Maps JavaScript API, Places API)
+- `REACT_APP_WEATHER_API_KEY`\
+([weather API](https://www.weatherbit.io/))
+
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
@@ -20,5 +26,5 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 - Typescript
 - [Materia UI 5](https://mui.com/), [styled components](https://styled-components.com/)
 - [Localforage](https://github.com/localForage/localForage)
-- google map API
-- [weather API](https://www.weatherbit.io/)
+- Google API
+- [Weather API](https://www.weatherbit.io/)

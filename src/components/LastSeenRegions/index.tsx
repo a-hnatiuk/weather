@@ -24,7 +24,7 @@ const LastSeenRegions: FC = () => {
 
   useEffect(() => {
     localForage.getItem('lastRegion').then((list) => {
-      setRegions(JSON.parse(list as string));
+      setRegions(list as ILastSeenRegion[]);
     });
   }, []);
 

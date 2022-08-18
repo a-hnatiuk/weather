@@ -1,5 +1,7 @@
 import axios from 'axios';
-import { ICoordinates } from '../containers/Context/Coordinates';
+import HttpStatus from 'constants/HttpStatus';
+
+import { ICoordinates } from 'containers/Context/Coordinates';
 
 const baseUrl = `https://api.weatherbit.io/v2.0/forecast/daily?key=${process.env.REACT_APP_WEATHER_API_KEY}`;
 
@@ -43,7 +45,7 @@ export const api = {
   forecast: {
     async getDaily(params: ICoordinates) {
       const { data, status } = await instance.get('', { params });
-      if (status === 200) {
+      if (status === HttpStatus.OK) {
         return data;
       }
       return null;
