@@ -1,17 +1,6 @@
 import { createBreakpoints } from '@mui/system';
 import { createTheme } from '@mui/material/styles';
 
-export interface CustomTheme {
-  bg?: {
-    main?: string;
-    light?: string;
-  };
-  text?: {
-    main?: string;
-    light?: string;
-  };
-}
-
 const breakpoints = createBreakpoints({
   values: {
     xs: 0,
@@ -65,6 +54,24 @@ export const theme = createTheme({
       fontSize: 14,
       [breakpoints.up('md')]: {
         fontSize: 16,
+      },
+    },
+  },
+  components: {
+    MuiContainer: {
+      styleOverrides: {
+        root: {
+          paddingLeft: 10,
+          paddingRight: 10,
+          [breakpoints.up('sm')]: {
+            paddingLeft: 15,
+            paddingRight: 15,
+          },
+          [breakpoints.up('md')]: {
+            paddingLeft: 20,
+            paddingRight: 20,
+          },
+        },
       },
     },
   },
