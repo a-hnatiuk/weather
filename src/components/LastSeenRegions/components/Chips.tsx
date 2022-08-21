@@ -11,9 +11,11 @@ import Tooltip from 'components/Tooltip';
 
 const TEXT_LENGTH_ALLOWED = 25;
 
-const Chip: FC<{
+interface IChip {
   region: ILastSeenRegion;
-}> = ({ region }) => {
+}
+
+const Chip: FC<IChip> = ({ region }) => {
   const { setCoordinates } = useContext(Coordinates);
   const navigate = useNavigate();
   const {

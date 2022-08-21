@@ -20,14 +20,6 @@ const theme = createTheme({
       main: '#326eb3',
     },
   },
-  bg: {
-    main: '#fff',
-    light: '#F4F5F7',
-  },
-  text: {
-    main: '#172B4D',
-    light: '#262930',
-  },
 });
 
 export default theme;

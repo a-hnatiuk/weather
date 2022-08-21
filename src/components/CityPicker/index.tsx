@@ -1,7 +1,5 @@
 import { FC, ChangeEvent, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import localForage from 'localforage';
-import { styled } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import usePlacesAutocomplete, {
   getGeocode,
@@ -15,18 +13,16 @@ import {
   IconButton,
 } from '@mui/material';
 
+import {
+  appendLocalStorageItem,
+  initLocalStorageItem,
+  lsKyes,
+} from 'helpers/localforage';
+
 import { RouterLinks } from 'components/Routes';
-import { ILastSeenRegion } from 'components/LastSeenRegions';
 import { Coordinates } from 'containers/Context/Coordinates';
 
-const StyledCityPicker = styled(({ className, children }: any) => (
-  <div className={className}>{children}</div>
-))({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  maxWidth: 600,
-});
+import { StyledCityPicker } from 'components/CityPicker/styled';
 
 const CityPicker: FC = () => {
   const { setCoordinates } = useContext(Coordinates);
@@ -42,11 +38,7 @@ const CityPicker: FC = () => {
   });
 
   useEffect(() => {
-    localForage.getItem('lastRegion').then((currentList) => {
-      if (currentList === null) {
-        localForage.setItem('lastRegion', []);
-      }
-    });
+    initLocalStorageItem(lsKyes.LAST_REGION, []);
   }, []);
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -66,18 +58,12 @@ const CityPicker: FC = () => {
         if (setCoordinates) {
           const coordinates = { lat, lon: lng };
 
-          localForage.getItem('lastRegion').then((currentListJson) => {
-            const currentLastSeenList: Array<ILastSeenRegion> =
-              currentListJson as Array<ILastSeenRegion>;
-
-            if (!currentLastSeenList.some((item) => item.id === placeId)) {
-              const updatedLastSeenList = currentLastSeenList.concat([
-                { id: placeId, description, coordinates },
-              ]);
-
-              localForage.setItem('lastRegion', updatedLastSeenList);
-            }
+          appendLocalStorageItem(lsKyes.LAST_REGION, {
+            id: placeId,
+            description,
+            coordinates,
           });
+
           setCoordinates(coordinates);
         }
       });

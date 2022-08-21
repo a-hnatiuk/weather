@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 
-import { mqUp } from 'helpers/mqUp';
+import { mediaQueryUp } from 'helpers/mediaQueryUp';
 
 interface ITabItem {
   children?: ReactNode;
@@ -11,7 +11,7 @@ interface ITabItem {
 export const tabPrefix = 'weather';
 
 const TabItem: FC<ITabItem> = ({ children, value, index, ...other }) => {
-  const desktop = mqUp('lg');
+  const desktop = mediaQueryUp('lg');
 
   return (
     <div

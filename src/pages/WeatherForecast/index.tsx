@@ -1,12 +1,12 @@
 import { FC, useContext, useEffect, useState, SyntheticEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Typography, Tabs, Tab, Box, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
 
 import { isEmpty } from 'helpers/isEmpty';
 import { api, IWeatherItem } from 'helpers/api';
-import { getKeyFromDate, getWeatherIcon, dateFormat } from 'helpers/weather';
-import { mqUp } from 'helpers/mqUp';
+import { getKeyFromDate, getWeatherIcon } from 'helpers/weather';
+import { mediaQueryUp } from 'helpers/mediaQueryUp';
 
 import { Coordinates } from 'containers/Context/Coordinates';
 import { RouterLinks } from 'components/Routes';
@@ -42,7 +42,7 @@ const DEGREE_SIGN = '\u00b0';
 
 const WeatherForecast: FC = () => {
   const navigate = useNavigate();
-  const desktop = mqUp('lg');
+  const desktop = mediaQueryUp('lg');
   const { coordinates } = useContext(Coordinates);
   const [forecastDailyList, setForecastDailyList] =
     useState<Array<IWeatherItem>>();

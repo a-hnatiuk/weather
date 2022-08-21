@@ -1,7 +1,8 @@
 import { FC, useMemo } from 'react';
-import { styled } from '@mui/material/styles';
 
 import LoaderIcon from 'icons/Loader';
+
+import { StyledIcon, StyledIconWrapper } from 'components/Loader/styled';
 
 // Error: 'LoaderColors' is already declared in the upper scope on line 8 column
 // eslint-disable-next-line
@@ -16,29 +17,6 @@ interface LoaderPropsType {
   box?: boolean;
   color?: LoaderColors;
 }
-
-const StyledIcon = styled(({ className, ...props }: any) => (
-  <span {...props} className={className}>
-    <LoaderIcon fill={props.color} />
-  </span>
-))({
-  position: 'absolute',
-  left: 0,
-  right: 0,
-  textAlign: 'center',
-  top: `${(props: { absolute?: boolean }) =>
-    props.absolute && 'calc(50% - 12px)'}`,
-});
-
-const StyledIconWrapper = styled(({ className, ...props }: any) => (
-  <span {...props} className={className}>
-    {props.children}
-  </span>
-))`
-  position: 'relative';
-  width: '100%';
-  display: 'block';
-`;
 
 const Loader: FC<LoaderPropsType> = ({ color, absolute, box }) => {
   const fill = useMemo(() => {
@@ -58,7 +36,9 @@ const Loader: FC<LoaderPropsType> = ({ color, absolute, box }) => {
 
   return (
     <StyledIconWrapper>
-      <StyledIcon color={fill} absolute={absolute} />
+      <StyledIcon>
+        <LoaderIcon fill={fill} fontSize="large" />
+      </StyledIcon>
     </StyledIconWrapper>
   );
 };

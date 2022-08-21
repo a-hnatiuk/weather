@@ -1,17 +1,11 @@
 import { FC, useEffect, useState } from 'react';
-import localForage from 'localforage';
-import { styled } from '@mui/material/styles';
+
+import { getLocalStorageItem, lsKyes } from 'helpers/localforage';
 
 import { ICoordinates } from 'containers/Context/Coordinates';
 import Chip from 'components/LastSeenRegions/components/Chips';
 
-const StyledRegions = styled('div')`
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  width: 100%;
-  margin-bottom: 40px;
-`;
+import { StyledRegions } from 'components/LastSeenRegions/styled';
 
 export interface ILastSeenRegion {
   id: string;
@@ -23,9 +17,7 @@ const LastSeenRegions: FC = () => {
   const [regions, setRegions] = useState<Array<ILastSeenRegion>>();
 
   useEffect(() => {
-    localForage.getItem('lastRegion').then((list) => {
-      setRegions(list as ILastSeenRegion[]);
-    });
+    getLocalStorageItem(lsKyes.LAST_REGION, setRegions);
   }, []);
 
   return (
