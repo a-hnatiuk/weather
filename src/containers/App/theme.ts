@@ -11,7 +11,7 @@ export interface CustomTheme {
   };
 }
 
-const theme = createTheme({
+export const theme = createTheme({
   palette: {
     primary: {
       main: '#3F8AE0',
@@ -20,6 +20,13 @@ const theme = createTheme({
       main: '#326eb3',
     },
   },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 480,
+      md: 768,
+      lg: 992,
+      xl: 1440,
+    },
+  },
 });
-
-export default theme;
