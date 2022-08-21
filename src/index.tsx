@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client';
 import App from 'containers/App';
 
 import 'normalize.css';
+import 'assets/fonts/index.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
