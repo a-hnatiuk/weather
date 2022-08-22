@@ -4,47 +4,22 @@ import LoaderIcon from 'icons/Loader';
 
 import { StyledIcon, StyledIconWrapper } from 'components/Loader/styled';
 
-// Error: 'LoaderColors' is already declared in the upper scope on line 8 column
-// eslint-disable-next-line
-export enum LoaderColors {
-  white = 'white',
-  primary = 'primary',
-  secondary = 'secondary',
-}
-
 interface LoaderPropsType {
   absolute?: boolean;
   box?: boolean;
-  color?: LoaderColors;
+  color?: string;
 }
 
-const Loader: FC<LoaderPropsType> = ({ color, absolute, box }) => {
-  const fill = useMemo(() => {
-    // TODO fix colors. Now does not work
-    switch (color) {
-      case LoaderColors.primary: {
-        return 'green';
-      }
-      case LoaderColors.secondary: {
-        return 'blue';
-      }
-      default: {
-        return '#fff';
-      }
-    }
-  }, [color]);
-
-  return (
-    <StyledIconWrapper absolute={absolute}>
-      <StyledIcon>
-        <LoaderIcon fill={fill} fontSize="large" />
-      </StyledIcon>
-    </StyledIconWrapper>
-  );
-};
+const Loader: FC<LoaderPropsType> = ({ color, absolute, box }) => (
+  <StyledIconWrapper absolute={absolute}>
+    <StyledIcon>
+      <LoaderIcon fill={color} fontSize="large" />
+    </StyledIcon>
+  </StyledIconWrapper>
+);
 
 Loader.defaultProps = {
-  color: LoaderColors.primary,
+  color: 'yellow',
 };
 
 export default Loader;
