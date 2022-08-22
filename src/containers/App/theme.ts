@@ -15,6 +15,7 @@ export const theme = createTheme({
   palette: {
     primary: {
       main: '#3F8AE0',
+      light: '#c7e1ff',
     },
     secondary: {
       main: '#326eb3',
@@ -27,19 +28,22 @@ export const theme = createTheme({
     fontWeightMedium: 700,
     fontWeightBold: 900,
     h1: {
-      fontSize: 20,
+      fontSize: 28,
+      fontWeight: 700,
       [breakpoints.up('md')]: {
-        fontSize: 28,
+        fontSize: 32,
       },
     },
     h2: {
-      fontSize: 18,
+      fontSize: 24,
+      fontWeight: 700,
       [breakpoints.up('md')]: {
-        fontSize: 24,
+        fontSize: 26,
       },
     },
     h3: {
       fontSize: 16,
+      fontWeight: 700,
       [breakpoints.up('md')]: {
         fontSize: 18,
       },

@@ -1,16 +1,24 @@
-import { styled } from '@mui/material/styles';
+import { styled, css } from '@mui/material/styles';
 
-// TODO
-// interface IStyledIcon {
-//   absolute?: boolean;
-// }
+interface IStyledIconWrapper {
+  absolute?: boolean;
+}
 
-export const StyledIcon = styled('span')`
-  text-align: 'center';
-`;
-
-export const StyledIconWrapper = styled('span')`
+export const StyledIconWrapper = styled('span')<IStyledIconWrapper>`
   position: 'relative';
   width: '100%';
   display: 'block';
+
+  ${({ absolute }) =>
+    absolute &&
+    css`
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    `}
+`;
+
+export const StyledIcon = styled('span')`
+  text-align: 'center';
 `;

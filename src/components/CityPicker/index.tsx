@@ -5,12 +5,7 @@ import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from 'use-places-autocomplete';
-import {
-  ListItemButton,
-  ListItemText,
-  TextField,
-  IconButton,
-} from '@mui/material';
+import { ListItemButton, ListItemText, TextField } from '@mui/material';
 
 import {
   appendLocalStorageItem,
@@ -21,11 +16,7 @@ import {
 import { RouterLinks } from 'components/Routes';
 import { Coordinates } from 'containers/Context/Coordinates';
 
-import {
-  StyledCityPicker,
-  StyledInputWrapper,
-  StyledList,
-} from 'components/CityPicker/styled';
+import * as S from 'components/CityPicker/styled';
 import Button from 'components/Button';
 
 const CityPicker: FC = () => {
@@ -81,12 +72,16 @@ const CityPicker: FC = () => {
       } = suggestion;
 
       return (
-        <ListItemButton key={place_id} onClick={handleSelect(suggestion)}>
+        <S.StyledListItemButton
+          key={place_id}
+          onClick={handleSelect(suggestion)}
+          divider
+        >
           <ListItemText
             primary={<strong>{main_text}</strong>}
             secondary={secondary_text}
           />
-        </ListItemButton>
+        </S.StyledListItemButton>
       );
     });
 
@@ -95,8 +90,8 @@ const CityPicker: FC = () => {
   };
 
   return (
-    <StyledCityPicker>
-      <StyledInputWrapper>
+    <S.StyledCityPicker>
+      <S.StyledInputWrapper>
         <TextField
           value={value}
           onChange={handleInput}
@@ -113,13 +108,13 @@ const CityPicker: FC = () => {
         >
           <SearchIcon />
         </Button>
-      </StyledInputWrapper>
+      </S.StyledInputWrapper>
       {status === 'OK' && (
-        <StyledList component="nav" aria-label="list of locations">
+        <S.StyledList component="nav" aria-label="list of locations">
           {renderSuggestions()}
-        </StyledList>
+        </S.StyledList>
       )}
-    </StyledCityPicker>
+    </S.StyledCityPicker>
   );
 };
 

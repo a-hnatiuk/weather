@@ -1,7 +1,7 @@
 # About
 The Weather App allows you to browse weather forecast in any region you choose. Find your native city with useful autocomplete search and explore the weather for the next 16 days.
 
-Frequently searched locations are saved at the Home page.
+Frequently searched locations (last 5) are saved at the Home page.
 
 Adaptive layout
   

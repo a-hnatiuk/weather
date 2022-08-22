@@ -35,7 +35,7 @@ const Loader: FC<LoaderPropsType> = ({ color, absolute, box }) => {
   }, [color]);
 
   return (
-    <StyledIconWrapper>
+    <StyledIconWrapper absolute={absolute}>
       <StyledIcon>
         <LoaderIcon fill={fill} fontSize="large" />
       </StyledIcon>

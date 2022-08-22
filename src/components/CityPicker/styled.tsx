@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { styled } from '@mui/material/styles';
-import { Button, List } from '@mui/material';
+import { Button, List, ListItemButton } from '@mui/material';
 
 export const StyledCityPicker = styled('div')`
   position: absolute;
@@ -42,4 +42,10 @@ export const StyledList = styled(List)<IStyledList>`
   position: absolute;
   left: 0;
   width: 100%;
+`;
+
+export const StyledListItemButton = styled(ListItemButton)`
+  &:hover {
+    background-color: ${(props) => props.theme.palette.primary.light};
+  }
 `;
