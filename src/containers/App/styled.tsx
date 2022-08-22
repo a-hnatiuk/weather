@@ -5,10 +5,3 @@ export const SRoot = styled('div')`
   flex-direction: column;
   height: 100vh;
 `;
-
-export const SWrap = styled('div')`
-  flex: 1 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;

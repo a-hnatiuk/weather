@@ -6,7 +6,6 @@ import usePlacesAutocomplete, {
   getLatLng,
 } from 'use-places-autocomplete';
 import {
-  List,
   ListItemButton,
   ListItemText,
   TextField,
@@ -22,7 +21,12 @@ import {
 import { RouterLinks } from 'components/Routes';
 import { Coordinates } from 'containers/Context/Coordinates';
 
-import { StyledCityPicker } from 'components/CityPicker/styled';
+import {
+  StyledCityPicker,
+  StyledInputWrapper,
+  StyledList,
+} from 'components/CityPicker/styled';
+import Button from 'components/Button';
 
 const CityPicker: FC = () => {
   const { setCoordinates } = useContext(Coordinates);
@@ -92,27 +96,28 @@ const CityPicker: FC = () => {
 
   return (
     <StyledCityPicker>
-      <div>
+      <StyledInputWrapper>
         <TextField
           value={value}
           onChange={handleInput}
           disabled={!ready}
           variant="standard"
           label="Select your region"
+          fullWidth
         />
-        <IconButton
-          type="button"
-          sx={{ p: '10px' }}
+        <Button
+          smallRound
           aria-label="search"
           onClick={handleSearch}
+          variant="contained"
         >
           <SearchIcon />
-        </IconButton>
-      </div>
+        </Button>
+      </StyledInputWrapper>
       {status === 'OK' && (
-        <List component="nav" aria-label="main mailbox folders">
+        <StyledList component="nav" aria-label="list of locations">
           {renderSuggestions()}
-        </List>
+        </StyledList>
       )}
     </StyledCityPicker>
   );

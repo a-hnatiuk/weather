@@ -20,11 +20,22 @@ export const initLocalStorageItem = (key: string, initValue: any) => {
   });
 };
 
-export const appendLocalStorageItem = (key: string, payload: any) => {
+export const appendLocalStorageItem = (
+  key: string,
+  payload: any,
+  maxItemsAllowed: number = 5
+) => {
   localForage.getItem(key).then((locaStorageItem) => {
     if (locaStorageItem instanceof Array) {
       if (!locaStorageItem.some((item) => item.id === payload.id)) {
-        localForage.setItem(key, locaStorageItem.concat(payload));
+        if (locaStorageItem.length < maxItemsAllowed) {
+          localForage.setItem(key, locaStorageItem.concat(payload));
+        } else {
+          localForage.setItem(key, [
+            ...locaStorageItem.slice(1, locaStorageItem.length),
+            payload,
+          ]);
+        }
       }
     }
   });

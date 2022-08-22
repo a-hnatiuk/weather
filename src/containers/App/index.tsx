@@ -6,17 +6,14 @@ import { theme } from 'containers/App/theme';
 import Routes, { history } from 'components/Routes';
 import { CoordinatesProvider } from 'containers/Context/Coordinates';
 
-import { SRoot, SWrap } from 'containers/App/styled';
-import { Typography } from '@mui/material';
+import { SRoot } from 'containers/App/styled';
 
 const App: FC = () => (
   <CoordinatesProvider>
     <ThemeProvider theme={theme}>
       <HistoryRouter history={history}>
         <SRoot>
-          <SWrap>
-            <Routes />
-          </SWrap>
+          <Routes />
         </SRoot>
       </HistoryRouter>
     </ThemeProvider>

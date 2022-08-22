@@ -1,7 +1,7 @@
 import { createBreakpoints } from '@mui/system';
 import { createTheme } from '@mui/material/styles';
 
-const breakpoints = createBreakpoints({
+export const breakpoints = createBreakpoints({
   values: {
     xs: 0,
     sm: 480,
