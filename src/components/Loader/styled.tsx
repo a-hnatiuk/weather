@@ -9,7 +9,9 @@ interface IStyledLoader {
   spin?: boolean;
 }
 
-export const StyledLoader = styled(LoaderIcon)<IStyledLoader>`
+export const StyledLoader = styled(LoaderIcon, {
+  shouldForwardProp: (prop) => !['absolute', 'spin'].includes(prop as string),
+})<IStyledLoader>`
   position: static;
   width: 100px;
   height: 100px;
