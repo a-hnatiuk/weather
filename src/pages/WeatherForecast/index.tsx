@@ -7,7 +7,6 @@ import { api, IWeatherItem } from 'helpers/api';
 import { getKeyFromDate, getWeatherIcon } from 'helpers/weather';
 import { mediaQueryUp } from 'helpers/mediaQueryUp';
 
-import Loader from 'components/Loader';
 import Back from 'icons/Back';
 import { Coordinates } from 'containers/Context/Coordinates';
 import { RouterLinks } from 'components/Routes';
@@ -16,6 +15,7 @@ import Title from 'pages/WeatherForecast/components/Title';
 import TitleSmall from 'pages/WeatherForecast/components/TitleSmall';
 
 import * as S from 'pages/WeatherForecast/styled';
+import { StyledLoader } from 'components/Loader/styled';
 
 const extraProps = (index: number) => ({
   id: `${tabPrefix}-tab-${index}`,
@@ -57,7 +57,7 @@ const WeatherForecast: FC = () => {
   const backHandler = () => navigate(RouterLinks.home, { replace: true });
 
   return isLoading ? (
-    <Loader absolute />
+    <StyledLoader absolute spin />
   ) : (
     <>
       <S.StyledContainer maxWidth="xl">

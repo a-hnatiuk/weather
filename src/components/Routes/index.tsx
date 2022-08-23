@@ -2,7 +2,7 @@ import React, { FC, Suspense } from 'react';
 import { createBrowserHistory } from 'history';
 import { Route, Routes as ReactRoutes } from 'react-router-dom';
 
-import Loader from 'components/Loader';
+import { StyledLoader } from 'components/Loader/styled';
 
 const Home = React.lazy(() => import('pages/Home'));
 const WeatherForecast = React.lazy(() => import('pages/WeatherForecast'));
@@ -18,7 +18,7 @@ export enum RouterLinks {
 export const history = createBrowserHistory({ window });
 
 const Routes: FC = () => (
-  <Suspense fallback={<Loader />}>
+  <Suspense fallback={<StyledLoader absolute spin />}>
     <ReactRoutes>
       <Route element={<Home />} path={RouterLinks.home} />
       <Route element={<WeatherForecast />} path={RouterLinks.forecast} />
