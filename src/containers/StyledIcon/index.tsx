@@ -1,5 +1,5 @@
 import { styled, css } from '@mui/material/styles';
-import LoaderIcon from 'icons/Loader';
+import { FC } from 'react';
 
 interface IStyledLoader {
   absolute?: boolean;
@@ -9,7 +9,7 @@ interface IStyledLoader {
   spin?: boolean;
 }
 
-export const StyledLoader = styled(LoaderIcon, {
+export const StyledIcon = (component: FC) => styled(component, {
   shouldForwardProp: (prop) => !['absolute', 'spin'].includes(prop as string),
 })<IStyledLoader>`
   position: static;

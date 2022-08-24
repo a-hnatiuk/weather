@@ -1,6 +1,6 @@
 import { FC, useContext, useEffect, useState, SyntheticEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Typography, Tabs, Tab, Box, Button, Container } from '@mui/material';
+import { Typography, Tabs, Button, Container } from '@mui/material';
 
 import { isEmpty } from 'helpers/isEmpty';
 import { api, IWeatherItem } from 'helpers/api';
@@ -13,9 +13,10 @@ import { RouterLinks } from 'components/Routes';
 import TabItem, { tabPrefix } from 'components/TabItem';
 import Title from 'pages/WeatherForecast/components/Title';
 import TitleSmall from 'pages/WeatherForecast/components/TitleSmall';
+import { StyledIcon } from 'containers/StyledIcon';
 
 import * as S from 'pages/WeatherForecast/styled';
-import { StyledLoader } from 'components/Loader/styled';
+import Loader from 'icons/Loader';
 
 const extraProps = (index: number) => ({
   id: `${tabPrefix}-tab-${index}`,
@@ -33,6 +34,7 @@ const WeatherForecast: FC = () => {
   const [value, setValue] = useState<number>(0);
   const [forecastRegion, setForecastRegion] = useState<string>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const SLoader = StyledIcon(Loader);
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -57,7 +59,7 @@ const WeatherForecast: FC = () => {
   const backHandler = () => navigate(RouterLinks.home, { replace: true });
 
   return isLoading ? (
-    <StyledLoader absolute spin />
+    <SLoader absolute spin />
   ) : (
     <>
       <S.StyledContainer maxWidth="xl">
