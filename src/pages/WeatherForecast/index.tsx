@@ -8,6 +8,7 @@ import { getKeyFromDate, getWeatherIcon } from 'helpers/weather';
 import { mediaQueryUp } from 'helpers/mediaQueryUp';
 
 import Back from 'icons/Back';
+import Loader from 'icons/Loader';
 import { Coordinates } from 'containers/Context/Coordinates';
 import { RouterLinks } from 'components/Routes';
 import TabItem, { tabPrefix } from 'components/TabItem';
@@ -16,7 +17,6 @@ import TitleSmall from 'pages/WeatherForecast/components/TitleSmall';
 import { StyledIcon } from 'containers/StyledIcon';
 
 import * as S from 'pages/WeatherForecast/styled';
-import Loader from 'icons/Loader';
 
 const extraProps = (index: number) => ({
   id: `${tabPrefix}-tab-${index}`,
@@ -71,7 +71,7 @@ const WeatherForecast: FC = () => {
           Back
         </Button>
         <Typography variant="h1" align="center" mb={6} mt={2}>
-          Wheather {forecastRegion && ` in  ${forecastRegion}`}
+          Weather {forecastRegion && ` in  ${forecastRegion}`}
         </Typography>
       </S.StyledContainer>
       {forecastDailyList && forecastDailyList.length > 0 && (
@@ -102,6 +102,7 @@ const WeatherForecast: FC = () => {
                 <TabItem value={value} index={i}>
                   <Container maxWidth="xl">
                     <S.StyledBox p={2}>
+                      <div>dd</div>
                       <img
                         className="icon"
                         src={getWeatherIcon(weather.icon)}

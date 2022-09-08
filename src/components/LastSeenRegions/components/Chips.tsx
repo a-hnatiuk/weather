@@ -1,6 +1,6 @@
 import { FC, useContext, MouseEvent } from 'react';
-import { Chip as ChipUI } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { Chip as ChipUI } from '@mui/material';
 
 import { trancate } from 'helpers/trancate';
 

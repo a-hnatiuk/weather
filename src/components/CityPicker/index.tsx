@@ -1,11 +1,11 @@
 import { FC, ChangeEvent, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SearchIcon from '@mui/icons-material/Search';
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from 'use-places-autocomplete';
-import { ListItemButton, ListItemText, TextField } from '@mui/material';
+import { ListItemText, TextField } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
 import {
   appendLocalStorageItem,
