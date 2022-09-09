@@ -55,6 +55,12 @@
     ],
     "import/prefer-default-export": 0,
     "import/no-unresolved": 0,
-    "no-unused-vars": 0
+    "no-unused-vars": 0,
+    "camelcase": [
+      0,
+      {
+        "properties": "never"
+      }
+    ]
   }
 }
